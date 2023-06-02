@@ -22,7 +22,7 @@ $(function () {
   function getForecastData(city) {
     $.ajax({
       //get latitude and longitude data using city input and geo api
-      url: `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${weatherApiKey}`,
+      url: `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${weatherApiKey}`,
       type: "GET",
       dataType: "json",
       success: function (data) {
@@ -35,7 +35,6 @@ $(function () {
           type: "GET",
           dataType: "json",
           success: function (data) {
-            console.log(data);
             //clear existing forecast cards
             $("#forecast-container").empty();
 
