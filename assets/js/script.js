@@ -36,15 +36,39 @@ $(function () {
           dataType: "json",
           success: function (data) {
             console.log(data);
+            //clear existing forecast cards
+            $("#forecast-container").empty();
+
             //loop through data list and get forecast for 5 days
             //since our endpoint is 3-hour 5 day, we get back 40 data points. in order to return 5 we need to grab every 8
+
             for (let i = 0; i < data.list.length; i += 8) {
-              //change temp from kelvins to F
-              console.log(`${data.list[i].main.temp}`);
-              console.log(`${data.list[i].weather[0].icon}`);
-              console.log(`${data.list[i].wind.speed}`);
-              console.log(`${data.list[i].main.humidity}`);
-              console.log(`${data.list[i].dt_txt}`);
+              var date = data.list[i].dt_txt;
+              var forecastDate = date.substring(5, 10);
+
+              var forecastCard = `
+                <div class="col-sm-12 col-md-2">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">${forecastDate}</h5>
+                      <p class="card-text">Temperature: ${data.list[
+                        i
+                      ].main.temp.toFixed(2)}°F</p>
+                      <p class="card-text">Humidity: ${
+                        data.list[i].main.humidity
+                      }%</p>
+                      <p class="card-text">Wind Speed: ${
+                        data.list[i].wind.speed
+                      } mph</p>
+                      <img src="http://openweathermap.org/img/wn/${
+                        data.list[i].weather[0].icon
+                      }.png" alt="Weather Icon" />
+                    </div>
+                  </div>
+                </div>`;
+
+              //append the new forecast card to the container
+              $("#forecast-container").append(forecastCard);
             }
           },
         });
