@@ -3,19 +3,19 @@ $(function () {
   var weatherApiKey = "c0c121fba052263fed9243172c4438c8";
   function getWeatherData(city) {
     $.ajax({
-      url: `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherApiKey}`,
+      url: `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${weatherApiKey}`,
       type: "GET",
       dataType: "json",
       success: function (data) {
         //grab specific data we want to use
-        console.log(data);
-        console.log(`${data.name}`);
-        console.log(`${data.weather[0].main}`);
-        //change temp from kelvins to F
-        console.log(`${((data.main.temp * 9) / 5 - 459.67).toFixed(2)}`);
-        console.log(`${data.weather[0].icon}`);
-        console.log(`${data.wind.speed}`);
-        console.log(`${data.main.humidity}`);
+        $("#weather-title").text(`${data.name} - ${data.weather[0].main}`);
+        $("#weather-temp").text(`Temperature: ${data.main.temp}°F`);
+        $("#weather-humidity").text(`Humidity: ${data.main.humidity}%`);
+        $("#weather-wind").text(`Wind Speed: ${data.wind.speed} mph`);
+        $("#weather-icon").attr(
+          "src",
+          `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`
+        );
       },
     });
   }
@@ -31,7 +31,7 @@ $(function () {
 
         //make another call to use lat and lon to get forecast data
         $.ajax({
-          url: `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}`,
+          url: `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${weatherApiKey}`,
           type: "GET",
           dataType: "json",
           success: function (data) {
@@ -40,9 +40,7 @@ $(function () {
             //since our endpoint is 3-hour 5 day, we get back 40 data points. in order to return 5 we need to grab every 8
             for (let i = 0; i < data.list.length; i += 8) {
               //change temp from kelvins to F
-              console.log(
-                `${((data.list[i].main.temp * 9) / 5 - 459.67).toFixed(2)}`
-              );
+              console.log(`${data.list[i].main.temp}`);
               console.log(`${data.list[i].weather[0].icon}`);
               console.log(`${data.list[i].wind.speed}`);
               console.log(`${data.list[i].main.humidity}`);
