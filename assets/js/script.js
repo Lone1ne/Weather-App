@@ -46,11 +46,11 @@ $(function () {
               var forecastDate = date.substring(5, 10);
 
               var forecastCard = `
-                <div class="col-sm-12 col-md-2">
+                <div class="col-sm-12 col-md-4 col-lg-2 my-2">
                   <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">${forecastDate}</h5>
-                      <p class="card-text">Temperature: ${data.list[
+                      <p class="card-text">Temp: ${data.list[
                         i
                       ].main.temp.toFixed(2)}°F</p>
                       <p class="card-text">Humidity: ${
@@ -74,13 +74,78 @@ $(function () {
       },
     });
   }
+
+  function searchHistory() {
+    // get the search history from localStorage
+    var history = JSON.parse(localStorage.getItem("history")) || [];
+
+    // clear the existing search history
+    $("#history").empty();
+
+    // for each city in the search history
+    for (let i = 0; i < history.length; i++) {
+      // create a new history item element
+      var historyItem = $("<li>").addClass("history-item").text(history[i]);
+
+      // append the history item to the search history container
+      $("#history").append(historyItem);
+    }
+  }
   //event listener on search button
   $("#search-btn").on("click", function () {
     //grab city input value
     var city = $("#city-input").val();
-    localStorage.setItem("city", city);
+
+    // get the existing search history
+    var history = JSON.parse(localStorage.getItem("history")) || [];
+
+    // if the city does not exist in the search history
+    if (!history.includes(city)) {
+      // add city to the search history
+      history.push(city);
+    }
+    // save search history to the localStorage
+    localStorage.setItem("history", JSON.stringify(history));
+
     //call the weather data function
     getWeatherData(city);
     getForecastData(city);
+    searchHistory();
   });
+  //event listener on search history items
+  $("#history").on("click", ".history-item", function () {
+    // get the name of the city
+    var city = $(this).text();
+
+    // display the weather data for the city
+    getWeatherData(city);
+    getForecastData(city);
+  });
+
+  $("#clear-history-btn").on("click", function () {
+    // Clear the search history from local storage
+    localStorage.removeItem("history");
+
+    // Clear the displayed list
+    $("#history").empty();
+  });
+
+  //get search history for the local storage
+  var history = JSON.parse(localStorage.getItem("history")) || [];
+  var lastCity;
+
+  if (history.length > 0) {
+    // get the last city from the search history
+    lastCity = history[history.length - 1];
+  } else {
+    // default to Denver if there's no city in local storage
+    lastCity = "Denver";
+  }
+
+  // display the weather data for the last city or Denver
+  getWeatherData(lastCity);
+  getForecastData(lastCity);
+
+  // display the search history when the page loads
+  searchHistory();
 });
