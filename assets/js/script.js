@@ -46,22 +46,28 @@ $(function () {
               var forecastDate = date.substring(5, 10);
 
               var forecastCard = `
-                <div class="col-sm-12 col-md-4 col-lg-2 my-2">
-                  <div class="card">
+                <div class="col-md-6 col-lg custom-width">
+                  <div class="card mx-2 my-3 my-md-2 my-lg-5">
                     <div class="card-body">
-                      <h5 class="card-title">${forecastDate}</h5>
-                      <p class="card-text">Temp: ${data.list[
-                        i
-                      ].main.temp.toFixed(2)}°F</p>
-                      <p class="card-text">Humidity: ${
-                        data.list[i].main.humidity
-                      }%</p>
-                      <p class="card-text">Wind Speed: ${
-                        data.list[i].wind.speed
-                      } mph</p>
-                      <img src="http://openweathermap.org/img/wn/${
-                        data.list[i].weather[0].icon
-                      }.png" alt="Weather Icon" />
+                      <div class="row">
+                        <div class="col">
+                          <h5 class="card-title">${forecastDate}</h5>
+                        </div>
+                        <img class="shake-img img-fluid" src="http://openweathermap.org/img/wn/${
+                          data.list[i].weather[0].icon
+                        }.png" alt="Weather Icon" />
+                        <div class="col">
+                          <p class="card-text">Temp: ${data.list[
+                            i
+                          ].main.temp.toFixed(2)}°F</p>
+                          <p class="card-text">Humidity: ${
+                            data.list[i].main.humidity
+                          }%</p>
+                          <p class="card-text">Wind Speed: ${
+                            data.list[i].wind.speed
+                          } mph</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>`;

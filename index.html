@@ -15,40 +15,52 @@
     <title>Weather Application</title>
   </head>
   <body>
-    <header>
-      <nav class="navbar"></nav>
-    </header>
-    <div class="container">
-      <div class="row text-center">
+    <div class="container bg-dark">
+      <div class="row text-center text-white p-4 mb-4 welcome">
         <div class="col-sm-12">
           <h1>Welcome to the Weather App!</h1>
         </div>
       </div>
-      <div class="row my-4">
-        <div class="col-sm-12 col-md-3">
-          <input type="text" id="city-input" placeholder="Enter city name" />
-          <button class="btn btn-primary" id="search-btn">Search</button>
-          <div id="history"></div>
-          <button class="btn btn-primary" id="clear-history-btn">
-            Clear History
-          </button>
+      <div class="row bg-dark px-4">
+        <div
+          class="col-sm-12 col-md-3 text-center p-2 py-3 rounded text-md-left text-white"
+        >
+          <input
+            type="text"
+            id="city-input"
+            placeholder="Enter city name"
+            class="mb-2"
+          />
+          <button class="btn btn-primary mb-2" id="search-btn">Search</button>
+          <div id="history" class="mb-2"></div>
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-primary" id="clear-history-btn">
+              Clear History
+            </button>
+          </div>
         </div>
-        <div class="col-sm-12 col-md-9">
+        <div class="col-sm-12 col-md-9 my-3">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title" id="weather-title"></h5>
-              <p id="weather-date"></p>
-              <p class="card-text" id="weather-temp"></p>
-              <p class="card-text" id="weather-humidity"></p>
-              <p class="card-text" id="weather-wind"></p>
-              <img id="weather-icon" alt="Weather Icon" />
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title" id="weather-title"></h5>
+                  <p id="weather-date"></p>
+                  <p class="card-text" id="weather-temp"></p>
+                  <p class="card-text" id="weather-humidity"></p>
+                  <p class="card-text" id="weather-wind"></p>
+                </div>
+                <div class="col">
+                  <img id="weather-icon" alt="Weather Icon" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div
         id="forecast-container"
-        class="row justify-content-around text-center my-2"
+        class="row no-gutters justify-content-between text-center"
       ></div>
     </div>
     <script
