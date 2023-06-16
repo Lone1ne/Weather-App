@@ -7,11 +7,16 @@ $(function () {
       type: "GET",
       dataType: "json",
       success: function (data) {
+        var weatherDate = `${data.dt}`;
+        var date = new Date(weatherDate * 1000);
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
         //grab specific data we want to use
         $("#weather-title").text(`${data.name} - ${data.weather[0].main}`);
         $("#weather-temp").text(`Temperature: ${data.main.temp}°F`);
         $("#weather-humidity").text(`Humidity: ${data.main.humidity}%`);
         $("#weather-wind").text(`Wind Speed: ${data.wind.speed} mph`);
+        $("#weather-date").text(`Date: ${month}-${day}`);
         $("#weather-icon").attr(
           "src",
           `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`
