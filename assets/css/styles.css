@@ -1,13 +1,5 @@
-/* rgb(168, 155, 155)  */
 body {
   background-color: rgb(168, 155, 155);
-}
-.welcome {
-  background-color: rgb(84, 84, 239);
-}
-.card {
-  background-color: rgb(84, 84, 239);
-  color: blanchedalmond;
 }
 #weather-icon {
   min-width: 200px;
@@ -15,9 +7,16 @@ body {
 #forcast-container {
   width: 100%;
 }
+.welcome {
+  background-color: rgb(84, 84, 239);
+}
 .shake-img {
   width: 50%;
   height: auto;
+}
+.card {
+  background-color: rgb(84, 84, 239);
+  color: blanchedalmond;
 }
 .card:hover {
   transform: scale(1.05);
@@ -27,6 +26,9 @@ body {
 .card:hover .shake-img {
   animation: shake 0.5s;
   animation-iteration-count: infinite;
+}
+.history-item:hover {
+  cursor: pointer;
 }
 
 @keyframes shake {
